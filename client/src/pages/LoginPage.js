@@ -12,7 +12,7 @@ function LoginPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const apiUrl = 'http://localhost:5000/api/users'; // Backend URL'sini burada kontrol edin
+            const apiUrl = 'http://localhost:5000/api/users'; // Backend URL hier überprüfen
             if (isLogin) {
                 const response = await axios.post(`${apiUrl}/login`, { email, password });
                 localStorage.setItem('userInfo', JSON.stringify(response.data));
@@ -21,47 +21,47 @@ function LoginPage() {
                 localStorage.setItem('userInfo', JSON.stringify(response.data));
             }
         } catch (error) {
-            console.error('API call failed:', error.response ? error.response.data.message : error.message);
+            console.error('API-Anruf fehlgeschlagen:', error.response ? error.response.data.message : error.message);
         }
     };
 
     return (
         <Container>
             <div className="auth-form">
-                <h2>{isLogin ? 'Login' : 'Register'}</h2>
+                <h2>{isLogin ? 'Anmelden' : 'Registrieren'}</h2>
                 <Form onSubmit={handleSubmit}>
                     {!isLogin && (
                         <Form.Group controlId="username">
-                            <Form.Label>Username</Form.Label>
+                            <Form.Label>Benutzername</Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Enter username"
+                                placeholder="Benutzernamen eingeben"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                             />
                         </Form.Group>
                     )}
                     <Form.Group controlId="email">
-                        <Form.Label>Email address</Form.Label>
+                        <Form.Label>Email Adresse</Form.Label>
                         <Form.Control
                             type="email"
-                            placeholder="Enter email"
+                            placeholder="Email eingeben"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </Form.Group>
                     <Form.Group controlId="password">
-                        <Form.Label>Password</Form.Label>
+                        <Form.Label>Passwort</Form.Label>
                         <Form.Control
                             type="password"
-                            placeholder="Enter password"
+                            placeholder="Passwort eingeben"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </Form.Group>
-                    <Button variant="primary" type="submit">{isLogin ? 'Login' : 'Register'}</Button>
+                    <Button variant="primary" type="submit">{isLogin ? 'Anmelden' : 'Registrieren'}</Button>
                     <Button variant="link" onClick={() => setIsLogin(!isLogin)}>
-                        {isLogin ? 'Create new account' : 'Already have an account? Login'}
+                        {isLogin ? 'Neues Konto erstellen' : 'Haben Sie bereits ein Konto? Anmelden'}
                     </Button>
                 </Form>
             </div>

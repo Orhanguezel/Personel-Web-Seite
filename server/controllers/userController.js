@@ -8,7 +8,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const userExists = await User.findOne({ email });
   if (userExists) {
     res.status(400);
-    throw new Error('Kullanıcı zaten mevcut');
+    throw new Error('Benutzer existiert bereits');
   }
 
   const user = await User.create({ username, email, password });
@@ -21,7 +21,7 @@ const registerUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error('Geçersiz kullanıcı verisi');
+    throw new Error('Ungültige Benutzerdaten');
   }
 });
 
@@ -37,7 +37,7 @@ const loginUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(401);
-    throw new Error('Geçersiz e-posta veya şifre');
+    throw new Error('Ungültige Email oder Passwort');
   }
 });
 
@@ -52,7 +52,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(404);
-    throw new Error('Kullanıcı bulunamadı');
+    throw new Error('Benutzer nicht gefunden');
   }
 });
 
