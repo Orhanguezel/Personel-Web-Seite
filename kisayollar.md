@@ -20,3 +20,5 @@ node server/server.js
 
 mongo
 use personal
+
+
