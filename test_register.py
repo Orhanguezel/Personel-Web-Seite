@@ -1,21 +1,25 @@
 import requests
 import json
 
-# Load users from JSON file
-with open('users.json', 'r') as file:
-    users = json.load(file)
+# Kayıt ve giriş URL'leri
+register_url = "http://localhost:5000/api/users/register"
+login_url = "http://localhost:5000/api/users/login"
 
-# API endpoint URL
-url = 'http://localhost:5000/api/users/register'
+# Test kullanıcıları
+users = [
+    {"username": "admin", "email": "admin@example.com", "password": "adminpassword", "role": "admin"},
+    {"username": "user1", "email": "user1@example.com", "password": "userpassword"},
+    {"username": "user2", "email": "user2@example.com", "password": "userpassword"},
+    {"username": "guest1", "email": "guest1@example.com", "password": "guestpassword"},
+    {"username": "guest2", "email": "guest2@example.com", "password": "guestpassword"},
+]
 
-# Function to register a user
 def register_user(user):
-    response = requests.post(url, json=user)
+    response = requests.post(register_url, json=user)
     if response.status_code == 201:
         print(f"User {user['username']} registered successfully.")
     else:
         print(f"Failed to register user {user['username']}. Response: {response.text}")
 
-# Register each user
 for user in users:
     register_user(user)

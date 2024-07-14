@@ -4,11 +4,11 @@ const generateToken = require('../utils/generateToken');
 
 const registerUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
+  
   const userExists = await User.findOne({ email });
-
   if (userExists) {
     res.status(400);
-    throw new Error('User already exists');
+    throw new Error('Kullanıcı zaten mevcut');
   }
 
   const user = await User.create({ username, email, password });
@@ -21,14 +21,13 @@ const registerUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error('Invalid user data');
+    throw new Error('Geçersiz kullanıcı verisi');
   }
 });
 
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-
   if (user && (await user.matchPassword(password))) {
     res.json({
       _id: user._id,
@@ -38,7 +37,7 @@ const loginUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(401);
-    throw new Error('Invalid email or password');
+    throw new Error('Geçersiz e-posta veya şifre');
   }
 });
 
@@ -53,7 +52,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error('Kullanıcı bulunamadı');
   }
 });
 

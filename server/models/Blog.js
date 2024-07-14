@@ -1,19 +1,46 @@
 const mongoose = require('mongoose');
 
-const BlogSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  content: { type: String, required: true },
-  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  category: { type: String, required: true },
-  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-  comments: [
-    {
-      user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-      text: { type: String, required: true },
-      date: { type: Date, default: Date.now }
+const commentSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    comment: {
+        type: String,
+        required: true
     }
-  ],
-  created_at: { type: Date, default: Date.now }
+}, {
+    timestamps: true
 });
 
-module.exports = mongoose.model('Blog', BlogSchema);
+const blogSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    content: {
+        type: String,
+        required: true
+    },
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    },
+    comments: [commentSchema],
+    likes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }]
+}, {
+    timestamps: true
+});
+
+const Blog = mongoose.model('Blog', blogSchema);
+
+module.exports = Blog;
