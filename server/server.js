@@ -19,6 +19,14 @@ connection.once('open', () => {
     console.log('MongoDB database connection established successfully');
 });
 
+// Yönlendirme dosyalarını dahil edelim
+const userRoutes = require('./routes/userRoutes');
+const blogRoutes = require('./routes/blogRoutes');
+
+// Yönlendirmeleri kullan
+app.use('/api/users', userRoutes);
+app.use('/api/blogs', blogRoutes);
+
 app.get('/', (req, res) => {
     res.send('Backend is running');
 });

@@ -1,0 +1,85 @@
+/* HomePage.css */
+
+.hero {
+    background-image: url('https://via.placeholder.com/1200x600');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 100px 0;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+}
+
+.hero p {
+    font-size: 1.5rem;
+    margin: 20px 0;
+}
+
+.hero .btn {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+}
+
+.summary-sections {
+    margin-top: 50px;
+}
+
+.summary-card {
+    margin-bottom: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.summary-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.summary-card .card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.summary-card .card-text {
+    text-align: center;
+}
+
+.technology-section {
+    margin-top: 50px;
+}
+
+.technology-section h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.technology-section p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+}
+
+.tech-icon {
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+    transition: transform 0.3s;
+}
+
+.tech-icon:hover {
+    transform: scale(1.1);
+}
+
+.technology-section h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

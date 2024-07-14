@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Card, Row, Col } from 'react-bootstrap';
+import './ProjectsPage.css';
 
 const projects = [
     { 
@@ -31,10 +32,11 @@ const projects = [
 function ProjectsPage() {
     return (
         <Container>
+            <h2 className="page-title">Projects</h2>
             <Row>
                 {projects.map((project, index) => (
                     <Col key={index} sm={12} md={6} lg={4}>
-                        <Card className="card" style={{ margin: '10px' }}>
+                        <Card className="project-card">
                             <Card.Img variant="top" src={project.image} />
                             <Card.Body>
                                 <Card.Title className="card-title">{project.title}</Card.Title>
