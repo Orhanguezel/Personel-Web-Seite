@@ -1,0 +1,55 @@
+/* App.css */
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
+
+.jumbotron {
+  background-color: #343a40;
+  color: #ffffff;
+  padding: 50px 25px;
+  margin-bottom: 40px;
+}
+
+.jumbotron h1 {
+  font-size: 3.5rem;
+  font-weight: 300;
+}
+
+.jumbotron p {
+  font-size: 1.2rem;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+
+.card-title {
+  font-size: 1.5rem;
+}
+
+.footer {
+  background-color: #343a40;
+  color: #ffffff;
+  padding: 20px 0;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}

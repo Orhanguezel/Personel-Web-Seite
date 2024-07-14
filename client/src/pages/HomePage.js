@@ -5,7 +5,7 @@ function HomePage() {
     return (
         <Container>
             <Row className="justify-content-md-center">
-                <Col md="auto">
+                <Col md="auto" className="jumbotron">
                     <h1>Welcome to My Personal Website</h1>
                     <p>
                         I specialize in restaurant management systems, e-commerce sites, promotional pages, and news sites.
