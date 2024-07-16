@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
-import axios from 'axios';
+import axios from '../axios'; // axios dosyasını doğru yerden import edin
 import './AuthPage.css';
 
 function LoginPage() {
@@ -12,56 +12,57 @@ function LoginPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const apiUrl = 'http://localhost:5000/api/users'; // Backend URL hier überprüfen
+            const apiUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
             if (isLogin) {
-                const response = await axios.post(`${apiUrl}/login`, { email, password });
+                const response = await axios.post(`${apiUrl}/users/login`, { email, password });
                 localStorage.setItem('userInfo', JSON.stringify(response.data));
             } else {
-                const response = await axios.post(`${apiUrl}/register`, { username, email, password });
+                const response = await axios.post(`${apiUrl}/users/register`, { username, email, password });
                 localStorage.setItem('userInfo', JSON.stringify(response.data));
             }
+            window.location.replace('/userprofile'); // Giriş başarılıysa yönlendirme
         } catch (error) {
-            console.error('API-Anruf fehlgeschlagen:', error.response ? error.response.data.message : error.message);
+            console.error('API call failed:', error.response ? error.response.data.message : error.message);
         }
     };
 
     return (
         <Container>
             <div className="auth-form">
-                <h2>{isLogin ? 'Anmelden' : 'Registrieren'}</h2>
+                <h2>{isLogin ? 'Login' : 'Register'}</h2>
                 <Form onSubmit={handleSubmit}>
                     {!isLogin && (
                         <Form.Group controlId="username">
-                            <Form.Label>Benutzername</Form.Label>
+                            <Form.Label>Username</Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Benutzernamen eingeben"
+                                placeholder="Enter username"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                             />
                         </Form.Group>
                     )}
                     <Form.Group controlId="email">
-                        <Form.Label>Email Adresse</Form.Label>
+                        <Form.Label>Email address</Form.Label>
                         <Form.Control
                             type="email"
-                            placeholder="Email eingeben"
+                            placeholder="Enter email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </Form.Group>
                     <Form.Group controlId="password">
-                        <Form.Label>Passwort</Form.Label>
+                        <Form.Label>Password</Form.Label>
                         <Form.Control
                             type="password"
-                            placeholder="Passwort eingeben"
+                            placeholder="Enter password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </Form.Group>
-                    <Button variant="primary" type="submit">{isLogin ? 'Anmelden' : 'Registrieren'}</Button>
+                    <Button variant="primary" type="submit">{isLogin ? 'Login' : 'Register'}</Button>
                     <Button variant="link" onClick={() => setIsLogin(!isLogin)}>
-                        {isLogin ? 'Neues Konto erstellen' : 'Haben Sie bereits ein Konto? Anmelden'}
+                        {isLogin ? 'Create new account' : 'Already have an account? Login'}
                     </Button>
                 </Form>
             </div>

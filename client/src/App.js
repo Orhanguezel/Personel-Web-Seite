@@ -8,6 +8,7 @@ import ContactPage from './pages/ContactPage';
 import AboutPage from './pages/AboutPage';
 import TestimonialsPage from './pages/TestimonialsPage';
 import BlogPage from './pages/BlogPage';
+import BlogDetailPage from './pages/BlogDetailPage';
 import LoginPage from './pages/LoginPage';
 import { Navbar, Nav, Row, Col, Container } from 'react-bootstrap';
 import { FaEnvelope, FaLinkedin, FaGithub, FaFacebook, FaInstagram } from 'react-icons/fa';
@@ -38,6 +39,7 @@ function App() {
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/testimonials" element={<TestimonialsPage />} />
                 <Route path="/blog" element={<BlogPage />} />
+                <Route path="/blogs/:id" element={<BlogDetailPage />} />
                 <Route path="/login" element={<LoginPage />} />
             </Routes>
             <footer className="footer">

@@ -115,7 +115,6 @@ nano AuthContext.js
 
 
 
-$2b$10$Us.ZWMmnLyoFqY751qu7/.rXVJSvNXoI5NDNdmUsubNxotvAwlEea
 
 
 node testPassword.js
@@ -140,6 +139,6 @@ mongosh -u admin -p adminpassword --authenticationDatabase admin
 
 mongosh --host 141.136.36.40 -u admin -p adminpassword --authenticationDatabase admin
 
-
+ssh root@141.136.36.40
 
 

@@ -12,19 +12,16 @@ app.use(express.json());
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true  // Bu satırı ekleyin
-});
-
-const connection = mongoose.connection;
-connection.once('open', () => {
+    useCreateIndex: true
+}).then(() => {
     console.log('MongoDB database connection established successfully');
+}).catch((error) => {
+    console.error('MongoDB connection error:', error.message);
 });
 
-// Yönlendirme dosyalarını dahil edelim
 const userRoutes = require('./routes/userRoutes');
 const blogRoutes = require('./routes/blogRoutes');
 
-// Yönlendirmeleri kullan
 app.use('/api/users', userRoutes);
 app.use('/api/blogs', blogRoutes);
 
