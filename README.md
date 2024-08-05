@@ -44,4 +44,3 @@ Ben Orhan Güzel, mühendislik geçmişine sahip tutkulu bir web geliştiricisiy
 Benimle [LinkedIn](https://www.linkedin.com/in/orhan-güzel-53b47b11a) üzerinden iletişime geçebilir veya [portföyümü](https://www.guezelwebdesign.com/) inceleyebilirsiniz.
 
 Benzer düşünen profesyonellerle bağlantı kurmayı ve heyecan verici projelere katkıda bulunmayı dört gözle bekliyorum!
-
