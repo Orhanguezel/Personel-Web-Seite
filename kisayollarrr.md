@@ -23,7 +23,9 @@ node insertData6.js
 
 python3 test_api.py
 
-python3 test_register_user.py
+python3 test_register.py
+
+python3 test_login.py
 
 
 python3 test_create_order.py

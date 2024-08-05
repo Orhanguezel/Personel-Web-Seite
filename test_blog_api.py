@@ -1,67 +1,59 @@
 import requests
 
-# API URL'leri
+# Kayıt ve giriş URL'leri
 register_url = "http://localhost:5000/api/users/register"
 login_url = "http://localhost:5000/api/users/login"
-create_blog_url = "http://localhost:5000/api/blogs"
-update_blog_url = "http://localhost:5000/api/blogs/{id}"
-# delete_blog_url = "http://localhost:5000/api/blogs/{id}"
+blog_url = "http://localhost:5000/api/blogs"
 
-# Kullanıcıları kaydetme
-users = [
-    {"username": "admin", "email": "admin@example.com", "password": "adminpassword", "role": "admin"},
-    {"username": "user1", "email": "user1@example.com", "password": "userpassword", "role": "user"},
-    {"username": "user2", "email": "user2@example.com", "password": "userpassword", "role": "user"},
-    {"username": "guest1", "email": "guest1@example.com", "password": "guestpassword", "role": "guest"},
-    {"username": "guest2", "email": "guest2@example.com", "password": "guestpassword", "role": "guest"},
-]
+# Test kullanıcıları
+user = {"username": "testuser", "email": "testuser@example.com", "password": "testpassword"}
 
-for user in users:
+def register_user(user):
     response = requests.post(register_url, json=user)
     if response.status_code == 201:
         print(f"User {user['username']} registered successfully.")
     else:
         print(f"Failed to register user {user['username']}. Response: {response.text}")
+    return response
 
-# Kullanıcı giriş testleri
-tokens = {}
-for user in users:
-    login_payload = {"email": user['email'], "password": user['password']}
-    response = requests.post(login_url, json=login_payload)
+def login_user(user):
+    response = requests.post(login_url, json={"email": user['email'], "password": user['password']})
     if response.status_code == 200:
-        token = response.json()['token']
-        tokens[user['username']] = token
-        print(f"User {user['username']} logged in successfully. Token: {token}")
+        print(f"User with email {user['email']} logged in successfully.")
+        return response.json()
     else:
-        print(f"Failed to login user {user['username']}. Response: {response.text}")
+        print(f"Failed to log in user with email {user['email']}. Response: {response.text}")
+    return None
 
-# Admin kullanıcısı ile giriş yap
-admin_token = tokens.get('admin')
+def create_blog(blog, token):
+    headers = {"Authorization": f"Bearer {token}"}
+    response = requests.post(blog_url, json=blog, headers=headers)
+    if response.status_code == 201:
+        print(f"Blog '{blog['title']}' created successfully.")
+    else:
+        print(f"Failed to create blog '{blog['title']}'. Response: {response.text}")
+    return response
 
-# Yeni blog oluştur
-new_blog_payload = {
-    "title": "Test Blog",
-    "content": "Bu bir test blog yazısıdır."
-}
-headers = {"Authorization": f"Bearer {admin_token}"}
-create_response = requests.post(create_blog_url, json=new_blog_payload, headers=headers)
-if create_response.status_code == 201:
-    print(f"Blog created successfully: {create_response.json()}")
-    blog_id = create_response.json()['_id']
+def get_blogs():
+    response = requests.get(blog_url)
+    if response.status_code == 200:
+        blogs = response.json()
+        print(f"Retrieved {len(blogs)} blogs:")
+        for blog in blogs:
+            print(blog)
+    else:
+        print(f"Failed to retrieve blogs. Response: {response.text}")
+    return response
 
-    # Blog'u güncelle
-    update_blog_payload = {
-        "title": "Güncellenmiş Test Blog",
-        "content": "Bu, güncellenmiş bir test blog yazısıdır."
-    }
-    update_response = requests.put(update_blog_url.format(id=blog_id), json=update_blog_payload, headers=headers)
-    print(f"Blog updated successfully: {update_response.json()}")
+# Test kayıt ve giriş
+register_response = register_user(user)
+login_response = login_user(user)
 
-    # Blog'u silme yönlendirmesi geçici olarak kaldırılıyor
-    # delete_response = requests.delete(delete_blog_url.format(id=blog_id), headers=headers)
-    # if delete_response.status_code == 200:
-    #     print(f"Blog deleted successfully: {delete_response.json()}")
-    # else:
-    #     print(f"Failed to delete blog. Response: {delete_response.text}")
-else:
-    print(f"Failed to create blog. Response: {create_response.text}")
+if login_response:
+    token = login_response['token']
+    # Test blog oluşturma
+    blog = {"title": "Test Blog", "content": "This is a test blog.", "author": login_response['user']['_id']}
+    create_blog(blog, token)
+    # Blogları alma
+    get_blogs()
+

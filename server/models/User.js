@@ -21,6 +21,6 @@ UserSchema.methods.matchPassword = async function(password) {
   return await bcrypt.compare(password, this.password);
 };
 
-UserSchema.index({ email: 1 }, { unique: true });  // Bu satırı ekleyin
+UserSchema.index({ email: 1 }, { unique: true });
 
 module.exports = mongoose.model('User', UserSchema);

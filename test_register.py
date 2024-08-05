@@ -1,11 +1,8 @@
 import requests
 import json
 
-# Kayıt ve giriş URL'leri
 register_url = "http://localhost:5000/api/users/register"
-login_url = "http://localhost:5000/api/users/login"
 
-# Test kullanıcıları
 users = [
     {"username": "admin", "email": "admin@example.com", "password": "adminpassword", "role": "admin"},
     {"username": "user1", "email": "user1@example.com", "password": "userpassword"},

@@ -6,7 +6,9 @@ cd server
 
 python3 test_register.py
 
+python3 test_blog_api.py
 
+python3 test_blog_api.py
 
 python3 test_blog_delete.py
 
@@ -22,6 +24,11 @@ npm start
 mongo
 use personal
 db.users.find().pretty()
+
+show dbs
+
+
+
 
 
 db.users.find().pretty()
