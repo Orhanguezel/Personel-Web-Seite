@@ -10,6 +10,8 @@ python3 test_blog_api.py
 
 python3 test_blog_api.py
 
+python3 test_category.py
+
 python3 test_blog_delete.py
 
 

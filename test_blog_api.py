@@ -20,6 +20,7 @@ def login_user(user):
     response = requests.post(login_url, json={"email": user['email'], "password": user['password']})
     if response.status_code == 200:
         print(f"User with email {user['email']} logged in successfully.")
+        print("Login response JSON:", response.json())  # Burada yanıtı ekrana yazdırıyoruz
         return response.json()
     else:
         print(f"Failed to log in user with email {user['email']}. Response: {response.text}")
@@ -52,8 +53,7 @@ login_response = login_user(user)
 if login_response:
     token = login_response['token']
     # Test blog oluşturma
-    blog = {"title": "Test Blog", "content": "This is a test blog.", "author": login_response['user']['_id']}
+    blog = {"title": "Test Blog", "content": "This is a test blog.", "author": login_response['_id']}
     create_blog(blog, token)
     # Blogları alma
     get_blogs()
-
