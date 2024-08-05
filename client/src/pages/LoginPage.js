@@ -1,73 +1,53 @@
 import React, { useState } from 'react';
-import { Container, Form, Button } from 'react-bootstrap';
-import axios from '../axios'; // axios dosyasını doğru yerden import edin
-import './AuthPage.css';
+import { useNavigate } from 'react-router-dom';
+import axios from '../axios';
 
-function LoginPage() {
+const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [username, setUsername] = useState('');
-    const [isLogin, setIsLogin] = useState(true);
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const apiUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
-            if (isLogin) {
-                const response = await axios.post(`${apiUrl}/users/login`, { email, password });
-                localStorage.setItem('userInfo', JSON.stringify(response.data));
+            const { data } = await axios.post('/users/login', { email, password });
+            localStorage.setItem('userInfo', JSON.stringify(data));
+            if (data.role === 'admin') {
+                navigate('/admin/blogs');
             } else {
-                const response = await axios.post(`${apiUrl}/users/register`, { username, email, password });
-                localStorage.setItem('userInfo', JSON.stringify(response.data));
+                navigate('/');
             }
-            window.location.replace('/userprofile'); // Giriş başarılıysa yönlendirme
         } catch (error) {
-            console.error('API call failed:', error.response ? error.response.data.message : error.message);
+            setError(error.response ? error.response.data.message : error.message);
         }
     };
 
     return (
-        <Container>
-            <div className="auth-form">
-                <h2>{isLogin ? 'Login' : 'Register'}</h2>
-                <Form onSubmit={handleSubmit}>
-                    {!isLogin && (
-                        <Form.Group controlId="username">
-                            <Form.Label>Username</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                            />
-                        </Form.Group>
-                    )}
-                    <Form.Group controlId="email">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control
-                            type="email"
-                            placeholder="Enter email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId="password">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            type="password"
-                            placeholder="Enter password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </Form.Group>
-                    <Button variant="primary" type="submit">{isLogin ? 'Login' : 'Register'}</Button>
-                    <Button variant="link" onClick={() => setIsLogin(!isLogin)}>
-                        {isLogin ? 'Create new account' : 'Already have an account? Login'}
-                    </Button>
-                </Form>
-            </div>
-        </Container>
+        <div className="login-page">
+            <form onSubmit={handleSubmit}>
+                <h2>Login</h2>
+                {error && <p className="error">{error}</p>}
+                <div>
+                    <label>Email</label>
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label>Password</label>
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
     );
-}
+};
 
 export default LoginPage;

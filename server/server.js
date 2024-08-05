@@ -21,9 +21,11 @@ mongoose.connect(process.env.MONGO_URI, {
 
 const userRoutes = require('./routes/userRoutes');
 const blogRoutes = require('./routes/blogRoutes');
+const categoryRoutes = require('./routes/categoryRoutes'); // Kategoriler için eklenen rota
 
 app.use('/api/users', userRoutes);
 app.use('/api/blogs', blogRoutes);
+app.use('/api/categories', categoryRoutes); // Kategoriler için eklenen rota
 
 app.get('/', (req, res) => {
     res.send('Backend is running');

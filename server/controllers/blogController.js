@@ -1,105 +1,118 @@
-const Blog = require('../models/Blog');
-const asyncHandler = require('express-async-handler');
+const Blog = require('../models/blog.model');
 
-// Get all blogs
-const getBlogs = asyncHandler(async (req, res) => {
-    const blogs = await Blog.find({});
+// Bloglar için CRUD operasyonları
+const getBlogs = async (req, res) => {
+  try {
+    const blogs = await Blog.find().populate('author', 'username');
     res.json(blogs);
-});
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
 
-// Get a single blog by ID
-const getBlogById = asyncHandler(async (req, res) => {
-    const blog = await Blog.findById(req.params.id);
+const getBlogById = async (req, res) => {
+  try {
+    const blog = await Blog.findById(req.params.id).populate('author', 'username');
     if (blog) {
-        res.json(blog);
+      res.json(blog);
     } else {
-        res.status(404);
-        throw new Error('Blog not found');
+      res.status(404).json({ message: 'Blog not found' });
     }
-});
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
 
-// Create a new blog
-const createBlog = asyncHandler(async (req, res) => {
-    const { title, content, author } = req.body;
-    const blog = new Blog({
-        title,
-        content,
-        author: req.user._id
-    });
-    const createdBlog = await blog.save();
-    res.status(201).json(createdBlog);
-});
+const createBlog = async (req, res) => {
+  const { title, content, author } = req.body;
+  const newBlog = new Blog({ title, content, author });
 
-// Update a blog
-const updateBlog = asyncHandler(async (req, res) => {
-    const { title, content } = req.body;
+  try {
+    const savedBlog = await newBlog.save();
+    res.status(201).json(savedBlog);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+const updateBlog = async (req, res) => {
+  const { title, content } = req.body;
+
+  try {
     const blog = await Blog.findById(req.params.id);
+
     if (blog) {
-        blog.title = title || blog.title;
-        blog.content = content || blog.content;
-        const updatedBlog = await blog.save();
-        res.json(updatedBlog);
+      blog.title = title;
+      blog.content = content;
+      const updatedBlog = await blog.save();
+      res.json(updatedBlog);
     } else {
-        res.status(404);
-        throw new Error('Blog not found');
+      res.status(404).json({ message: 'Blog not found' });
     }
-});
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
 
-// Blog silme fonksiyonu
-const deleteBlog = asyncHandler(async (req, res) => {
-    const result = await Blog.deleteOne({ _id: req.params.id });
-
-    if (result.deletedCount === 1) {
-        res.json({ message: 'Blog removed' });
-    } else {
-        res.status(404);
-        throw new Error('Blog not found');
-    }
-});
-
-// Add a comment to a blog
-const addComment = asyncHandler(async (req, res) => {
+const deleteBlog = async (req, res) => {
+  try {
     const blog = await Blog.findById(req.params.id);
-    if (blog) {
-        const comment = {
-            user: req.user._id,
-            name: req.user.name,
-            comment: req.body.comment
-        };
-        blog.comments.push(comment);
-        await blog.save();
-        res.status(201).json({ message: 'Comment added' });
-    } else {
-        res.status(404);
-        throw new Error('Blog not found');
-    }
-});
 
-// Like a blog
-const likeBlog = asyncHandler(async (req, res) => {
-    const blog = await Blog.findById(req.params.id);
     if (blog) {
-        const alreadyLiked = blog.likes.find(like => like.toString() === req.user._id.toString());
-        if (alreadyLiked) {
-            blog.likes = blog.likes.filter(like => like.toString() !== req.user._id.toString());
-            res.json({ message: 'Blog unliked' });
-        } else {
-            blog.likes.push(req.user._id);
-            res.json({ message: 'Blog liked' });
-        }
-        await blog.save();
+      await blog.remove();
+      res.json({ message: 'Blog removed' });
     } else {
-        res.status(404);
-        throw new Error('Blog not found');
+      res.status(404).json({ message: 'Blog not found' });
     }
-});
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+const addComment = async (req, res) => {
+  const { comment } = req.body;
+
+  try {
+    const blog = await Blog.findById(req.params.id);
+
+    if (blog) {
+      blog.comments.push({ user: req.user._id, name: req.user.username, comment });
+      await blog.save();
+      res.status(201).json(blog.comments);
+    } else {
+      res.status(404).json({ message: 'Blog not found' });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+const likeBlog = async (req, res) => {
+  try {
+    const blog = await Blog.findById(req.params.id);
+
+    if (blog) {
+      if (blog.likes.includes(req.user._id)) {
+        blog.likes = blog.likes.filter((user) => user.toString() !== req.user._id.toString());
+      } else {
+        blog.likes.push(req.user._id);
+      }
+      await blog.save();
+      res.status(200).json(blog.likes);
+    } else {
+      res.status(404).json({ message: 'Blog not found' });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
 
 module.exports = {
-    getBlogs,
-    getBlogById,
-    createBlog,
-    updateBlog,
-    deleteBlog,
-    addComment,
-    likeBlog
+  getBlogs,
+  getBlogById,
+  createBlog,
+  updateBlog,
+  deleteBlog,
+  addComment,
+  likeBlog,
 };
