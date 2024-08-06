@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Form, Button, Row, Col, Modal, Card } from 'react-bootstrap';
-import axios from '../axios';
-import './AdminBlogPage.css';
+import React, { useEffect, useState } from 'react';
+import { Container, Card, Row, Col, Button, Modal, Form } from 'react-bootstrap';
+import axios from '../axios'; // Axios importu
 
 const AdminBlogPage = () => {
     const [blogs, setBlogs] = useState([]);
-    const [showModal, setShowModal] = useState(false);
-    const [isEditing, setIsEditing] = useState(false);
+    const [categories, setCategories] = useState([]);
     const [selectedBlog, setSelectedBlog] = useState(null);
+    const [showModal, setShowModal] = useState(false);
     const [title, setTitle] = useState('');
     const [summary, setSummary] = useState('');
     const [content, setContent] = useState('');
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState(null); // File input için null olarak başlat
     const [category, setCategory] = useState('');
-    const [categories, setCategories] = useState([]);
+    const [isEditing, setIsEditing] = useState(false);
+    const [categoryName, setCategoryName] = useState(''); // Yeni kategori adı için
 
     useEffect(() => {
         const fetchBlogs = async () => {
@@ -40,11 +40,11 @@ const AdminBlogPage = () => {
 
     const handleCreateBlog = () => {
         setIsEditing(false);
-        setSelectedBlog(null);
+        setSelectedBlog(null); // Yeni blog oluştururken önceki seçili blogu temizle
         setTitle('');
         setSummary('');
         setContent('');
-        setImage('');
+        setImage(null);
         setCategory('');
         setShowModal(true);
     };
@@ -56,17 +56,33 @@ const AdminBlogPage = () => {
         setSummary(blog.summary);
         setContent(blog.content);
         setImage(blog.image);
-        setCategory(blog.category);
+        setCategory(blog.category ? blog.category._id : ''); // Kategori ID'sini al
         setShowModal(true);
+    };
+
+    const handleFileChange = (e) => {
+        setImage(e.target.files[0]);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('summary', summary);
+        formData.append('content', content);
+        formData.append('category', category);
+        if (image) {
+            formData.append('image', image);
+        }
+
         try {
             if (isEditing) {
-                await axios.put(`/blogs/${selectedBlog._id}`, { title, summary, content, image, category });
+                await axios.put(`/blogs/${selectedBlog._id}`, formData);
             } else {
-                await axios.post('/blogs', { title, summary, content, image, category });
+                const userLocal = JSON.parse(localStorage.getItem('userInfo'));
+                formData.append('author', userLocal._id); // Author bilgisini ekleyin
+                await axios.post('/blogs', formData);
             }
             setShowModal(false);
             window.location.reload();
@@ -75,18 +91,53 @@ const AdminBlogPage = () => {
         }
     };
 
+    const handleCreateCategory = async () => {
+        try {
+            await axios.post('/categories', { name: categoryName });
+            setCategoryName('');
+            window.location.reload();
+        } catch (error) {
+            console.error('Error creating category:', error.response ? error.response.data.message : error.message);
+        }
+    };
+
     return (
         <Container>
             <h2 className="page-title">Yönetici Blog Sayfası</h2>
             <Button variant="primary" onClick={handleCreateBlog} className="mb-3">Yeni Blog Oluştur</Button>
+            <Form onSubmit={handleCreateCategory}>
+                <Form.Group controlId="categoryName">
+                    <Form.Label>Yeni Kategori Oluştur</Form.Label>
+                    <Form.Control
+                        type="text"
+                        placeholder="Kategori Adı"
+                        value={categoryName}
+                        onChange={(e) => setCategoryName(e.target.value)}
+                    />
+                </Form.Group>
+                <Button variant="primary" type="submit">Oluştur</Button>
+            </Form>
             <Row>
                 {blogs.map((blog) => (
                     <Col key={blog._id} sm={12} md={6} lg={4}>
                         <Card className="blog-card">
+                            {blog.image && (
+                                <Card.Img
+                                    variant="top"
+                                    src={`http://localhost:5000/uploads/${blog.image}`}
+                                    style={{ objectFit: 'cover', height: '200px', width: '100%' }} // Resim boyutunu ayarlayın
+                                />
+                            )}
                             <Card.Body>
-                                <Card.Title className="blogUser">{blog.author.username}</Card.Title>
-                                <Card.Subtitle className="blogTitle">{blog.title}</Card.Subtitle>
-                                <Card.Text className="blogContent">{blog.summary}</Card.Text>
+                                <Card.Title className="blogUser">
+                                    {blog.author.username}
+                                </Card.Title>
+                                <Card.Subtitle className="blogTitle">
+                                    {blog.title}
+                                </Card.Subtitle>
+                                <Card.Text className="blogContent">
+                                    {blog.content.substring(0, 100)}...
+                                </Card.Text>
                                 <Card.Footer className="d-flex">
                                     <Button variant="link" onClick={() => handleEditBlog(blog)}>Düzenle</Button>
                                 </Card.Footer>
@@ -131,12 +182,10 @@ const AdminBlogPage = () => {
                             />
                         </Form.Group>
                         <Form.Group controlId="image">
-                            <Form.Label>Resim URL'si</Form.Label>
+                            <Form.Label>Resim</Form.Label>
                             <Form.Control
-                                type="text"
-                                placeholder="Resim URL'si girin"
-                                value={image}
-                                onChange={(e) => setImage(e.target.value)}
+                                type="file"
+                                onChange={handleFileChange}
                             />
                         </Form.Group>
                         <Form.Group controlId="category">
@@ -148,8 +197,8 @@ const AdminBlogPage = () => {
                             >
                                 <option value="">Kategori seçin</option>
                                 {categories.map((cat) => (
-                                    <option key={cat} value={cat}>
-                                        {cat}
+                                    <option key={cat._id} value={cat._id}>
+                                        {cat.name}
                                     </option>
                                 ))}
                             </Form.Control>

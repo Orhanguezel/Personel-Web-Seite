@@ -1,21 +1,29 @@
-const Category = require('../models/Category');
-const asyncHandler = require('express-async-handler');
+// server/controllers/categoryController.js
+const Category = require('../models/category.model');
 
-// Get all categories
-const getCategories = asyncHandler(async (req, res) => {
-    const categories = await Category.find({});
+// Kategoriler için CRUD operasyonları
+const getCategories = async (req, res) => {
+  try {
+    const categories = await Category.find();
     res.json(categories);
-});
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
 
-// Create a new category
-const createCategory = asyncHandler(async (req, res) => {
-    const { name } = req.body;
-    const category = new Category({ name });
-    const createdCategory = await category.save();
-    res.status(201).json(createdCategory);
-});
+const createCategory = async (req, res) => {
+  const { name } = req.body;
+  const newCategory = new Category({ name });
+
+  try {
+    const savedCategory = await newCategory.save();
+    res.status(201).json(savedCategory);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
 
 module.exports = {
-    getCategories,
-    createCategory
+  getCategories,
+  createCategory,
 };

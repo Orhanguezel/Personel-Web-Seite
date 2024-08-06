@@ -1,9 +1,10 @@
 const Blog = require('../models/blog.model');
+const path = require('path');
 
 // Bloglar için CRUD operasyonları
 const getBlogs = async (req, res) => {
   try {
-    const blogs = await Blog.find().populate('author', 'username');
+    const blogs = await Blog.find().populate('author', 'username').populate('category', 'name');
     res.json(blogs);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -12,7 +13,7 @@ const getBlogs = async (req, res) => {
 
 const getBlogById = async (req, res) => {
   try {
-    const blog = await Blog.findById(req.params.id).populate('author', 'username');
+    const blog = await Blog.findById(req.params.id).populate('author', 'username').populate('category', 'name');
     if (blog) {
       res.json(blog);
     } else {
@@ -24,8 +25,11 @@ const getBlogById = async (req, res) => {
 };
 
 const createBlog = async (req, res) => {
-  const { title, content, author } = req.body;
-  const newBlog = new Blog({ title, content, author });
+  const { title, summary, content, category } = req.body;
+  const author = req.user._id;
+  const image = req.file ? req.file.filename : null;
+
+  const newBlog = new Blog({ title, summary, content, category, author, image });
 
   try {
     const savedBlog = await newBlog.save();
@@ -36,14 +40,18 @@ const createBlog = async (req, res) => {
 };
 
 const updateBlog = async (req, res) => {
-  const { title, content } = req.body;
+  const { title, summary, content, category } = req.body;
+  const image = req.file ? req.file.filename : req.body.image;
 
   try {
     const blog = await Blog.findById(req.params.id);
 
     if (blog) {
       blog.title = title;
+      blog.summary = summary;
       blog.content = content;
+      blog.category = category;
+      blog.image = image;
       const updatedBlog = await blog.save();
       res.json(updatedBlog);
     } else {

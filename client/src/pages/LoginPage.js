@@ -14,7 +14,7 @@ const LoginPage = () => {
             const { data } = await axios.post('/users/login', { email, password });
             localStorage.setItem('userInfo', JSON.stringify(data));
             if (data.role === 'admin') {
-                navigate('/admin/blogs');
+                navigate('/admin');
             } else {
                 navigate('/');
             }

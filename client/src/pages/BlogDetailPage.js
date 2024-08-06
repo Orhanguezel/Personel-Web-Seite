@@ -6,15 +6,23 @@ import axios from '../axios';
 const BlogDetailPage = () => {
     const { id } = useParams();
     const [blog, setBlog] = useState(null);
+    const [error, setError] = useState(null); // Hata durumu için state ekleyelim
 
     useEffect(() => {
         const fetchBlog = async () => {
-            const { data } = await axios.get(`/api/blogs/${id}`);
-            setBlog(data);
+            try {
+                const { data } = await axios.get(`/blogs/${id}`);
+                setBlog(data);
+            } catch (error) {
+                console.error('Error fetching blog:', error);
+                setError(error.response ? error.response.data.message : error.message); // Hata durumunu set edelim
+            }
         };
 
         fetchBlog();
     }, [id]);
+
+    if (error) return <p>Hata: {error}</p>; // Hata mesajını göster
 
     if (!blog) return <p>Loading...</p>;
 

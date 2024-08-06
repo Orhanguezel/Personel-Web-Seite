@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Card, Row, Col } from 'react-bootstrap';
-import axios from '../axios'; // axios'u doğru yerden import edin
-import './BlogList.css';
+import axios from '../axios';
 
 const BlogList = () => {
     const [blogs, setBlogs] = useState([]);
