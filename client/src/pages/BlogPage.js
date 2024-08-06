@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Card, Row, Col, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { AiFillLike } from 'react-icons/ai';
-import axios from '../axios'; // Axios importu
+import { Link } from 'react-router-dom'; // Link importu
+import axios from '../axios';
 
 const BlogPage = () => {
     const [blogs, setBlogs] = useState([]);
-
+    
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
@@ -22,6 +22,11 @@ const BlogPage = () => {
 
     const increaseLikes = async (id) => {
         const foundPost = blogs.find((post) => post._id === id);
+        if (!foundPost || !foundPost.whoClicked) {
+            console.error('Post or whoClicked array not found');
+            return;
+        }
+
         let tempArray = [...foundPost.whoClicked];
         const userLocal = JSON.parse(localStorage.getItem("userInfo"));
         tempArray.push(userLocal._id);
@@ -42,11 +47,12 @@ const BlogPage = () => {
                 {blogs.map((blog) => (
                     <Col key={blog._id} sm={12} md={6} lg={4}>
                         <Card className="blog-card">
+                            {blog.image && <Card.Img variant="top" src={`http://localhost:5000${blog.image}`} />}
                             <Card.Body>
-                                <Card.Title className="blogUser">
+                                <Card.Title className="blogUser" style={{ color: 'blue', fontSize: 'small' }}>
                                     {blog.author.username}
                                 </Card.Title>
-                                <Card.Subtitle className="blogTitle">
+                                <Card.Subtitle className="blogTitle" style={{ textAlign: 'center', fontSize: 'large' }}>
                                     {blog.title}
                                 </Card.Subtitle>
                                 <Card.Text className="blogContent">
@@ -55,7 +61,7 @@ const BlogPage = () => {
                                 <Card.Footer className="d-flex">
                                     <AiFillLike
                                         onClick={() =>
-                                            blog.whoClicked.includes(JSON.parse(localStorage.getItem("userInfo"))._id)
+                                            blog.whoClicked && blog.whoClicked.includes(JSON.parse(localStorage.getItem("userInfo"))._id)
                                                 ? null
                                                 : increaseLikes(blog._id)
                                         }

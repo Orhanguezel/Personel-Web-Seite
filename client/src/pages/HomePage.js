@@ -1,7 +1,29 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import './HomePage.css';
-// import your icons here...
+import phpIcon from '../assets/php.png';
+import jsIcon from '../assets/javascript.png';
+import nodejsIcon from '../assets/nodejs.png';
+import laravelIcon from '../assets/laravel.png';
+import reactIcon from '../assets/react.png';
+import vueIcon from '../assets/vuejs.png';
+import angularIcon from '../assets/angular.png';
+import mysqlIcon from '../assets/mysql.png';
+import redisIcon from '../assets/redis.png';
+import elasticIcon from '../assets/elasticsearch.png';
+import postgresIcon from '../assets/postgresql.png';
+import mongodbIcon from '../assets/mongodb.png';
+import sqliteIcon from '../assets/sqlite.png';
+import mariaIcon from '../assets/mariadb.png';
+import firebaseIcon from '../assets/firebase.png';
+import figmaIcon from '../assets/figma.png';
+import sketchIcon from '../assets/sketch.png';
+import xdIcon from '../assets/adobe_xd.png';
+import illustratorIcon from '../assets/adobe_illustrator.png';
+import canvaIcon from '../assets/canva.png';
+import bootstrapIcon from '../assets/bootstrap.png';
+import htmlIcon from '../assets/html.png';
+import cssIcon from '../assets/css.png';
 
 function HomePage() {
     return (
@@ -65,31 +87,49 @@ function HomePage() {
                     <Col md={12}>
                         <h4>Backend</h4>
                         <Row>
-                            {/* Add your technology icons here */}
+                            <Col><img src={phpIcon} alt="PHP" className="tech-icon" /></Col>
+                            <Col><img src={jsIcon} alt="JavaScript" className="tech-icon" /></Col>
+                            <Col><img src={nodejsIcon} alt="Node.js" className="tech-icon" /></Col>
                         </Row>
                     </Col>
                     <Col md={12}>
                         <h4>Framework</h4>
                         <Row>
-                            {/* Add your technology icons here */}
+                            <Col><img src={laravelIcon} alt="Laravel" className="tech-icon" /></Col>
+                            <Col><img src={reactIcon} alt="React" className="tech-icon" /></Col>
+                            <Col><img src={vueIcon} alt="Vue.js" className="tech-icon" /></Col>
+                            <Col><img src={angularIcon} alt="Angular" className="tech-icon" /></Col>
+                            <Col><img src={bootstrapIcon} alt="Bootstrap" className="tech-icon" /></Col>
                         </Row>
                     </Col>
                     <Col md={12}>
                         <h4>Datenbank</h4>
                         <Row>
-                            {/* Add your technology icons here */}
+                            <Col><img src={mysqlIcon} alt="MySQL" className="tech-icon" /></Col>
+                            <Col><img src={redisIcon} alt="Redis" className="tech-icon" /></Col>
+                            <Col><img src={elasticIcon} alt="Elasticsearch" className="tech-icon" /></Col>
+                            <Col><img src={postgresIcon} alt="PostgreSQL" className="tech-icon" /></Col>
+                            <Col><img src={mongodbIcon} alt="MongoDB" className="tech-icon" /></Col>
+                            <Col><img src={sqliteIcon} alt="SQLite" className="tech-icon" /></Col>
+                            <Col><img src={mariaIcon} alt="MariaDB" className="tech-icon" /></Col>
+                            <Col><img src={firebaseIcon} alt="Firebase" className="tech-icon" /></Col>
                         </Row>
                     </Col>
                     <Col md={12}>
                         <h4>UX/UI Design</h4>
                         <Row>
-                            {/* Add your technology icons here */}
+                            <Col><img src={figmaIcon} alt="Figma" className="tech-icon" /></Col>
+                            <Col><img src={sketchIcon} alt="Sketch" className="tech-icon" /></Col>
+                            <Col><img src={xdIcon} alt="Adobe XD" className="tech-icon" /></Col>
+                            <Col><img src={illustratorIcon} alt="Adobe Illustrator" className="tech-icon" /></Col>
+                            <Col><img src={canvaIcon} alt="Canva" className="tech-icon" /></Col>
                         </Row>
                     </Col>
                     <Col md={12}>
                         <h4>Web-Technologien</h4>
                         <Row>
-                            {/* Add your technology icons here */}
+                            <Col><img src={htmlIcon} alt="HTML" className="tech-icon" /></Col>
+                            <Col><img src={cssIcon} alt="CSS" className="tech-icon" /></Col>
                         </Row>
                     </Col>
                 </Row>

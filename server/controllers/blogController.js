@@ -27,7 +27,7 @@ const getBlogById = async (req, res) => {
 const createBlog = async (req, res) => {
   const { title, summary, content, category } = req.body;
   const author = req.user._id;
-  const image = req.file ? req.file.filename : null;
+  const image = req.file ? `/uploads/${req.file.filename}` : null;
 
   const newBlog = new Blog({ title, summary, content, category, author, image });
 
@@ -41,7 +41,7 @@ const createBlog = async (req, res) => {
 
 const updateBlog = async (req, res) => {
   const { title, summary, content, category } = req.body;
-  const image = req.file ? req.file.filename : req.body.image;
+  const image = req.file ? `/uploads/${req.file.filename}` : req.body.image;
 
   try {
     const blog = await Blog.findById(req.params.id);

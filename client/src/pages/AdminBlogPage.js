@@ -40,12 +40,6 @@ const AdminBlogPage = () => {
 
     const handleCreateBlog = () => {
         setIsEditing(false);
-        setSelectedBlog(null); // Yeni blog oluştururken önceki seçili blogu temizle
-        setTitle('');
-        setSummary('');
-        setContent('');
-        setImage(null);
-        setCategory('');
         setShowModal(true);
     };
 
@@ -56,7 +50,7 @@ const AdminBlogPage = () => {
         setSummary(blog.summary);
         setContent(blog.content);
         setImage(blog.image);
-        setCategory(blog.category ? blog.category._id : ''); // Kategori ID'sini al
+        setCategory(blog.category);
         setShowModal(true);
     };
 
@@ -121,18 +115,12 @@ const AdminBlogPage = () => {
                 {blogs.map((blog) => (
                     <Col key={blog._id} sm={12} md={6} lg={4}>
                         <Card className="blog-card">
-                            {blog.image && (
-                                <Card.Img
-                                    variant="top"
-                                    src={`http://localhost:5000/uploads/${blog.image}`}
-                                    style={{ objectFit: 'cover', height: '200px', width: '100%' }} // Resim boyutunu ayarlayın
-                                />
-                            )}
+                            {blog.image && <Card.Img variant="top" src={`http://localhost:5000${blog.image}`} />}
                             <Card.Body>
-                                <Card.Title className="blogUser">
+                                <Card.Title className="blogUser" style={{ color: 'blue', fontSize: 'small' }}>
                                     {blog.author.username}
                                 </Card.Title>
-                                <Card.Subtitle className="blogTitle">
+                                <Card.Subtitle className="blogTitle" style={{ textAlign: 'center', fontSize: 'large' }}>
                                     {blog.title}
                                 </Card.Subtitle>
                                 <Card.Text className="blogContent">

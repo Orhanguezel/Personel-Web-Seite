@@ -2,7 +2,7 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
-const path = require('path'); // path modülü import edin
+const path = require('path');
 const userRoutes = require('./routes/userRoutes');
 const blogRoutes = require('./routes/blogRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
@@ -29,8 +29,7 @@ mongoose.connect(mongoUri, {
 app.use('/api/users', userRoutes);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/categories', categoryRoutes);
-app.use('/uploads', express.static(path.join(__dirname, '/uploads'))); // Resimlerin servisi için gerekli olan satır
-
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 app.get('/', (req, res) => {
     res.send('Backend is running');
