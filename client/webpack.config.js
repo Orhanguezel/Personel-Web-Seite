@@ -47,7 +47,7 @@ module.exports = {
     },
     hot: true,
     historyApiFallback: true,
-    port: 3001, // Port numarasını değiştirin, eğer 3000 portu kullanımdaysa
+    port: 3001,
   },
   resolve: {
     extensions: ['.js', '.jsx'],

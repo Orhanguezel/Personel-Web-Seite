@@ -1,38 +1,42 @@
 import React from 'react';
 import { Container, Card, Row, Col } from 'react-bootstrap';
 import './ProjectsPage.css';
+import antalyaImage from '../assets/antalya-logo.png';
+import kuhlturmImage from '../assets/kuhlturm-logo.png';
+import btuImage from '../assets/btu-logo.png';
+import hazerImage from '../assets/hazer-logo.png';
 
 const projects = [
     { 
         title: 'Antalya Döner Pizzeria', 
-        description: 'A website for a döner restaurant in Germany.',
+        description: 'Eine Website für ein Döner-Restaurant in Deutschland.',
         link: 'https://www.antalya-doner-pizzeria.de',
-        image: 'https://www.antalya-doner-pizzeria.de/images/logo.png'
+        image: antalyaImage
     },
     { 
         title: 'Kuhlturm', 
-        description: 'Website for a refrigeration company.',
+        description: 'Website für ein Kühlunternehmen.',
         link: 'https://kuhlturm.com/',
-        image: 'https://kuhlturm.com/assets/images/logo.png'
+        image: kuhlturmImage
     },
     { 
         title: 'BTU Holding', 
-        description: 'Corporate website for BTU Holding.',
+        description: 'Firmenwebsite für BTU Holding.',
         link: 'https://btuholding.com.tr/',
-        image: 'https://btuholding.com.tr/assets/images/logo.png'
+        image: btuImage
     },
     { 
         title: 'Hazer Piliç', 
-        description: 'Website for Hazer Piliç, a poultry company.',
+        description: 'Website für Hazer Piliç, ein Geflügelunternehmen.',
         link: 'https://hazerpilic.com.tr/',
-        image: 'https://hazerpilic.com.tr/assets/images/logo.png'
+        image: hazerImage
     }
 ];
 
 function ProjectsPage() {
     return (
         <Container>
-            <h2 className="page-title">Projects</h2>
+            <h2 className="page-title">Projekte</h2>
             <Row>
                 {projects.map((project, index) => (
                     <Col key={index} sm={12} md={6} lg={4}>
@@ -41,7 +45,7 @@ function ProjectsPage() {
                             <Card.Body>
                                 <Card.Title className="card-title">{project.title}</Card.Title>
                                 <Card.Text>{project.description}</Card.Text>
-                                <Card.Link href={project.link} target="_blank">Learn more</Card.Link>
+                                <Card.Link href={project.link} target="_blank">Mehr erfahren</Card.Link>
                             </Card.Body>
                         </Card>
                     </Col>

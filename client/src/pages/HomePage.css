@@ -1,12 +1,11 @@
-/* HomePage.css */
-
 .hero {
-    background-image: url('https://via.placeholder.com/1200x600');
+    background-image: url('../assets/3.png');
     background-size: cover;
     background-position: center;
     color: #fff;
     padding: 100px 0;
     text-align: center;
+    position: relative;
 }
 
 .hero h1 {
@@ -19,9 +18,16 @@
     margin: 20px 0;
 }
 
-.hero .btn {
+.hero .hero-btn {
     font-size: 1.2rem;
-    padding: 10px 20px;
+    padding: 10px 10px;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
 }
 
 .summary-sections {
@@ -48,6 +54,36 @@
 }
 
 .summary-card .card-text {
+    text-align: center;
+}
+
+.blog-section {
+    margin-top: 50px;
+}
+
+.blog-section h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.blog-card {
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+}
+
+.blog-card .card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.blog-card .card-text {
     text-align: center;
 }
 
@@ -82,4 +118,120 @@
     font-weight: 600;
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1200px) {
+    .blog-card {
+        margin-bottom: 15px;
+    }
+
+    .summary-card {
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 992px) {
+    .hero h1 {
+        font-size: 3rem;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+    }
+
+    .hero .hero-btn {
+        font-size: 1rem;
+        padding: 8px 8px;
+    }
+
+    .blog-card .card-title {
+        font-size: 1.2rem;
+    }
+
+    .summary-card .card-title {
+        font-size: 1.2rem;
+    }
+
+    .technology-section h2 {
+        font-size: 2rem;
+    }
+
+    .technology-section h4 {
+        font-size: 1.2rem;
+    }
+
+    .technology-section p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .hero .hero-btn {
+        font-size: 0.9rem;
+        padding: 6px 6px;
+    }
+
+    .blog-card .card-title {
+        font-size: 1rem;
+    }
+
+    .summary-card .card-title {
+        font-size: 1rem;
+    }
+
+    .technology-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .technology-section h4 {
+        font-size: 1rem;
+    }
+
+    .technology-section p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 0.9rem;
+    }
+
+    .hero .hero-btn {
+        font-size: 0.8rem;
+        padding: 2px 2px;
+    }
+
+    .blog-card .card-title {
+        font-size: 0.9rem;
+    }
+
+    .summary-card .card-title {
+        font-size: 0.9rem;
+    }
+
+    .technology-section h2 {
+        font-size: 1.2rem;
+    }
+
+    .technology-section h4 {
+        font-size: 0.9rem;
+    }
+
+    .technology-section p {
+        font-size: 0.8rem;
+    }
 }

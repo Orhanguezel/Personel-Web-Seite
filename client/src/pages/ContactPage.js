@@ -42,19 +42,13 @@ function ContactPage() {
                     <div className="contact-info">
                         <h4>Kontakt Informationen</h4>
                         <p><FaEnvelope /> orhanguzell@gmail.com</p>
-                        <p><FaPhone /> 0171 3846068</p>
-                        <p>Buchholzer Straße 2, 41517 Grevenbroich, NRW, Deutschland</p>
-                        <h4>Soziale Medien</h4>
+                        <p><FaPhone /> 0172 384 6068</p>
                         <ul className="social-links">
-                            <li><a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer"><FaLinkedin /> LinkedIn</a></li>
-                            <li><a href="https://github.com" target="_blank" rel="noopener noreferrer"><FaGithub /> GitHub</a></li>
+                            <li><a href="https://www.linkedin.com/in/orhan-güzel-53b47b11a" target="_blank" rel="noopener noreferrer"><FaLinkedin /> LinkedIn</a></li>
+                            <li><a href="https://github.com/Orhanguezel" target="_blank" rel="noopener noreferrer"><FaGithub /> GitHub</a></li>
                             <li><a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebook /> Facebook</a></li>
                             <li><a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram /> Instagram</a></li>
                         </ul>
-                        <div className="reviews">
-                            <p>2 Bewertungen • Bewertung 4.9/5</p>
-                            <p>1 Bewertung • Bewertung 4.3/5</p>
-                        </div>
                     </div>
                 </Col>
             </Row>

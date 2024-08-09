@@ -5,7 +5,6 @@ import HomePage from './pages/HomePage';
 import ProjectsPage from './pages/ProjectsPage';
 import ContactPage from './pages/ContactPage';
 import AboutPage from './pages/AboutPage';
-import TestimonialsPage from './pages/TestimonialsPage';
 import BlogPage from './pages/BlogPage';
 import BlogDetailPage from './pages/BlogDetailPage';
 import LoginPage from './pages/LoginPage';
@@ -23,9 +22,8 @@ function App() {
                 <Route path="/projects" element={<ProjectsPage />} />
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/about" element={<AboutPage />} />
-                <Route path="/testimonials" element={<TestimonialsPage />} />
                 <Route path="/blog" element={<BlogPage />} />
-                <Route path="/blogs/:id" element={<BlogDetailPage />} />
+                <Route path="/blog/:id" element={<BlogDetailPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/admin" element={<AdminBlogPage />} />
             </Routes>

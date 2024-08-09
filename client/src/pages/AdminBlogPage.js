@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Card, Row, Col, Button, Modal, Form } from 'react-bootstrap';
 import axios from '../axios'; // Axios importu
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
 const AdminBlogPage = () => {
     const [blogs, setBlogs] = useState([]);
     const [categories, setCategories] = useState([]);
     const [selectedBlog, setSelectedBlog] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const [showCommentModal, setShowCommentModal] = useState(false);
+    const [comment, setComment] = useState('');
     const [title, setTitle] = useState('');
     const [summary, setSummary] = useState('');
     const [content, setContent] = useState('');
@@ -95,6 +98,47 @@ const AdminBlogPage = () => {
         }
     };
 
+    const handleShowCommentModal = (blog) => {
+        setSelectedBlog(blog);
+        setShowCommentModal(true);
+    };
+
+    const handleCommentSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const userLocal = JSON.parse(localStorage.getItem('userInfo'));
+            await axios.post(`/blogs/${selectedBlog._id}/comment`, {
+                comment,
+                user: userLocal._id,
+                username: userLocal.username
+            });
+            setShowCommentModal(false);
+            window.location.reload();
+        } catch (error) {
+            console.error('API call failed:', error.response ? error.response.data.message : error.message);
+        }
+    };
+
+    const handleRating = async (blog, rating) => {
+        try {
+            await axios.put(`/blogs/${blog._id}/rate`, {
+                rating
+            });
+            window.location.reload();
+        } catch (error) {
+            console.error('Fehler beim Bewerten:', error.response ? error.response.data.message : error.message);
+        }
+    };
+
+    const handleDeleteBlog = async (blogId) => {
+        try {
+            await axios.delete(`/blogs/${blogId}`);
+            setBlogs(blogs.filter(blog => blog._id !== blogId));
+        } catch (error) {
+            console.error('Fehler beim Löschen des Blogs:', error);
+        }
+    };
+
     return (
         <Container>
             <h2 className="page-title">Yönetici Blog Sayfası</h2>
@@ -126,8 +170,20 @@ const AdminBlogPage = () => {
                                 <Card.Text className="blogContent">
                                     {blog.content.substring(0, 100)}...
                                 </Card.Text>
+                                <Card.Footer className="d-flex justify-content-between">
+                                    <div>
+                                        {[...Array(5)].map((_, i) => (
+                                            <span key={i} onClick={() => handleRating(blog, i + 1)}>
+                                                {i < blog.averageRating ? <AiFillStar /> : <AiOutlineStar />}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <Button variant="link" onClick={() => handleShowCommentModal(blog)}>Yorum Ekle</Button>
+                                    <Button variant="link" onClick={() => window.location.href = `/blogs/${blog._id}`}>Mehr lesen</Button>
+                                </Card.Footer>
                                 <Card.Footer className="d-flex">
                                     <Button variant="link" onClick={() => handleEditBlog(blog)}>Düzenle</Button>
+                                    <Button variant="danger" onClick={() => handleDeleteBlog(blog._id)}>Sil</Button>
                                 </Card.Footer>
                             </Card.Body>
                         </Card>
@@ -194,6 +250,27 @@ const AdminBlogPage = () => {
                         <Button variant="primary" type="submit">
                             {isEditing ? 'Güncelle' : 'Oluştur'}
                         </Button>
+                    </Form>
+                </Modal.Body>
+            </Modal>
+
+            <Modal show={showCommentModal} onHide={() => setShowCommentModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Yorum Ekle</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={handleCommentSubmit}>
+                        <Form.Group controlId="comment">
+                            <Form.Label>Yorum</Form.Label>
+                            <Form.Control
+                                as="textarea"
+                                rows={3}
+                                placeholder="Yorumunuzu girin"
+                                value={comment}
+                                onChange={(e) => setComment(e.target.value)}
+                            />
+                        </Form.Group>
+                        <Button variant="primary" type="submit">Gönder</Button>
                     </Form>
                 </Modal.Body>
             </Modal>

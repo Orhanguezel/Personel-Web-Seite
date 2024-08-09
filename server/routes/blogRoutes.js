@@ -6,7 +6,8 @@ const {
     updateBlog,
     deleteBlog,
     addComment,
-    likeBlog
+    rateBlog,
+    getLastFourBlogs // Yeni fonksiyonu import ettik
 } = require('../controllers/blogController');
 const { protect, admin } = require('../middleware/authMiddleware');
 const upload = require('../middleware/uploadMiddleware');
@@ -16,12 +17,15 @@ router.route('/')
     .get(getBlogs)
     .post(protect, upload, createBlog);
 
+router.route('/last-four')
+    .get(getLastFourBlogs); // Yeni route'u ekledik
+
 router.route('/:id')
     .get(getBlogById)
     .put(protect, upload, updateBlog)
     .delete(protect, admin, deleteBlog);
 
 router.route('/:id/comment').post(protect, addComment);
-router.route('/:id/like').put(protect, likeBlog);
+router.route('/:id/rate').put(protect, rateBlog);
 
 module.exports = router;

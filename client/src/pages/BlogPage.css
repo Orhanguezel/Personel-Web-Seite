@@ -41,3 +41,14 @@
 .blog-card .card-link:hover {
     text-decoration: underline;
 }
+
+.rating span {
+    cursor: pointer;
+}
+.rating {
+    display: flex;
+    align-items: center;
+}
+.blogUser {
+    margin-top: 10px;
+}

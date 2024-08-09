@@ -1,11 +1,13 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose');
 const path = require('path');
+require('dotenv').config();
+
 const userRoutes = require('./routes/userRoutes');
 const blogRoutes = require('./routes/blogRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
+const upload = require('./middleware/uploadMiddleware');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -14,8 +16,6 @@ app.use(cors());
 app.use(express.json());
 
 const mongoUri = process.env.MONGO_URI;
-console.log("MONGO_URI:", mongoUri); // MONGO_URI'nin doğru tanımlandığını kontrol edin.
-
 mongoose.connect(mongoUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -30,6 +30,14 @@ app.use('/api/users', userRoutes);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+
+app.post('/upload', upload, (req, res) => {
+    if (req.file) {
+        res.json({ filePath: `/uploads/${req.file.filename}` });
+    } else {
+        res.status(400).json({ message: 'No file uploaded' });
+    }
+});
 
 app.get('/', (req, res) => {
     res.send('Backend is running');

@@ -8,7 +8,7 @@ function Header() {
             <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
                 <Container>
                     <LinkContainer to="/">
-                        <Navbar.Brand>Personal Website</Navbar.Brand>
+                        <Navbar.Brand>Guezel Webdesign</Navbar.Brand>
                     </LinkContainer>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
@@ -23,7 +23,10 @@ function Header() {
                                 <Nav.Link>Contact</Nav.Link>
                             </LinkContainer>
                             <LinkContainer to="/about">
-                                <Nav.Link>About</Nav.Link>
+                                <Nav.Link>Uber mich</Nav.Link>
+                            </LinkContainer>
+                            <LinkContainer to="/blog">
+                                <Nav.Link>Blog</Nav.Link>
                             </LinkContainer>
                             <LinkContainer to="/admin">
                                 <Nav.Link>Admin</Nav.Link>
