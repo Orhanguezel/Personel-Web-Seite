@@ -1,80 +1,41 @@
-/* App.css */
-
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f8f9fa;
-  margin: 0;
-  padding: 0;
+:root {
+  --primary-color: #68E1FD;      /* Ana renk */
+  --secondary-color: #0B181B;    /* İkincil renk */
+  --h1h2-color: #000F37;         /* Başlık rengi */
+  --text-color: #4F4F4F;         /* Genel metin rengi */
+  --white-color: #ffffff;        /* Beyaz renk */
+  font-size: 62.5%;              /* Temel font büyüklüğü, rem birimiyle hesaplanır */
 }
 
+/* Navbar genel stili */
 .navbar {
-  margin-bottom: 20px;
+  background-color: var(--white-color);  /* Navbar arka plan rengi */
+  color: var(--text-color);              /* Navbar metin rengi */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.hero {
-  background-image: url('https://via.placeholder.com/1200x600');
-  background-size: cover;
-  background-position: center;
-  color: #fff;
-  padding: 100px 0;
-  text-align: center;
-}
-
-.hero h1 {
-  font-size: 3.5rem;
-  font-weight: 700;
-}
-
-.hero p {
-  font-size: 1.5rem;
-  margin: 20px 0;
-}
-
-.hero .btn {
-  font-size: 1.2rem;
-  padding: 10px 20px;
-}
-
-.summary-sections {
-  margin-top: 50px;
-}
-
-.summary-sections .card {
-  margin-bottom: 20px;
-}
-
-.summary-sections .card-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
+/* Footer genel stili */
 .footer {
-  background-color: #343a40;
-  color: #ffffff;
+  background-color: var(--secondary-color);
+  color: var(--white-color);
   padding: 40px 0;
-  text-align: left;
 }
 
-.footer h5 {
-  color: #ffffff;
+.footer-col {
+  margin-bottom: 20px;
 }
 
 .footer a {
-  color: #ffffff;
+  color: var(--white-color);
   text-decoration: none;
 }
 
 .footer a:hover {
   text-decoration: underline;
-}
-
-.footer ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.footer-col {
-  margin-bottom: 20px;
 }
 
 .footer .text-center {

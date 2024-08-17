@@ -12,7 +12,7 @@ function ContactPage() {
             </p>
             <Row>
                 <Col md={6}>
-                    <Form>
+                    <Form className="contact-form">
                         <Form.Group controlId="formName">
                             <Form.Label>Name, Nachname</Form.Label>
                             <Form.Control type="text" placeholder="Geben Sie Ihren Namen ein" />

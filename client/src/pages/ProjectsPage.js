@@ -6,30 +6,34 @@ import kuhlturmImage from '../assets/kuhlturm-logo.png';
 import btuImage from '../assets/btu-logo.png';
 import hazerImage from '../assets/hazer-logo.png';
 
-const projects = [
+export const projects = [
     { 
         title: 'Antalya Döner Pizzeria', 
         description: 'Eine Website für ein Döner-Restaurant in Deutschland.',
         link: 'https://www.antalya-doner-pizzeria.de',
-        image: antalyaImage
+        image: antalyaImage,
+        alt: 'Antalya Döner Pizzeria Website'
     },
     { 
         title: 'Kuhlturm', 
         description: 'Website für ein Kühlunternehmen.',
         link: 'https://kuhlturm.com/',
-        image: kuhlturmImage
+        image: kuhlturmImage,
+        alt: 'Kuhlturm Website'
     },
     { 
         title: 'BTU Holding', 
         description: 'Firmenwebsite für BTU Holding.',
         link: 'https://btuholding.com.tr/',
-        image: btuImage
+        image: btuImage,
+        alt: 'BTU Holding Website'
     },
     { 
         title: 'Hazer Piliç', 
         description: 'Website für Hazer Piliç, ein Geflügelunternehmen.',
         link: 'https://hazerpilic.com.tr/',
-        image: hazerImage
+        image: hazerImage,
+        alt: 'Hazer Piliç Website'
     }
 ];
 
@@ -41,7 +45,7 @@ function ProjectsPage() {
                 {projects.map((project, index) => (
                     <Col key={index} sm={12} md={6} lg={4}>
                         <Card className="project-card">
-                            <Card.Img variant="top" src={project.image} />
+                            <Card.Img variant="top" src={project.image} alt={project.alt} loading="lazy" />
                             <Card.Body>
                                 <Card.Title className="card-title">{project.title}</Card.Title>
                                 <Card.Text>{project.description}</Card.Text>

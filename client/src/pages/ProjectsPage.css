@@ -1,10 +1,9 @@
-/* ProjectsPage.css */
-
 .page-title {
     text-align: center;
     margin: 40px 0;
     font-size: 2.5rem;
     font-weight: 700;
+    color: var(--h1h2-color); /* Başlık rengi */
 }
 
 .project-card {
@@ -13,6 +12,8 @@
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--white-color); /* Kart arka plan rengi */
+    color: var(--text-color); /* Kart metin rengi */
 }
 
 .project-card:hover {
@@ -24,27 +25,30 @@
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     object-fit: cover;
-    height: 200px;
+    width: 100%;
+    height: auto;
 }
 
 .card-title {
     font-size: 1.5rem;
     font-weight: 600;
     text-align: center;
+    color: var(--h1h2-color); /* Kart başlık rengi */
 }
 
 .card-text {
     text-align: center;
+    color: var(--text-color); /* Kart metin rengi */
 }
 
 .card-link {
     display: block;
     text-align: center;
-    color: #007bff;
+    color: var(--primary-color); /* Link rengi */
     font-weight: 600;
 }
 
 .card-link:hover {
-    color: #0056b3;
+    color: var(--secondary-color); /* Hover durumunda link rengi */
     text-decoration: none;
 }

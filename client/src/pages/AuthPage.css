@@ -1,27 +1,69 @@
-/* client/src/pages/AuthPage.css */
-.auth-form {
-    max-width: 500px;
-    margin: 0 auto;
+.auth-page {
+    max-width: 400px;
+    margin: 50px auto;
     padding: 20px;
-    background: #fff;
+    background: #f8f9fa; /* Hafif gri arka plan */
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
 }
 
-.auth-form h2 {
+.auth-page h2 {
     margin-bottom: 20px;
     text-align: center;
+    color: #007bff; /* Başlık rengi */
 }
 
-.auth-form .form-group {
+.auth-page .form-group {
     margin-bottom: 15px;
 }
 
-.auth-form .form-control {
+.auth-page .form-control {
     border-radius: 5px;
+    border: 1px solid #ced4da; /* Form kontrol sınır rengi */
 }
 
-.auth-form .btn {
+.auth-page .btn-primary {
     width: 100%;
     border-radius: 5px;
+    background-color: #007bff; /* Buton arka plan rengi */
+    color: #ffffff; /* Buton metin rengi */
+    border: none;
+    padding: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.auth-page .btn-primary:hover {
+    background-color: #0056b3; /* Hover durumu için daha koyu mavi */
+}
+
+.auth-page .toggle-btn-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.auth-page .toggle-btn-group button {
+    flex: 1;
+    border-radius: 5px;
+    border: 1px solid #007bff;
+    background-color: transparent;
+    color: #007bff;
+    padding: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.auth-page .toggle-btn-group button.active {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.auth-page .error {
+    color: red;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 15px;
 }

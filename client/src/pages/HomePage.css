@@ -1,237 +1,255 @@
+:root {
+  --primary-color: #68E1FD;
+  --secondary-color: #0B181B;
+  --h1h2-color: #000F37;
+  --text-color: #4F4F4F;
+  --white-color: #ffffff;
+  font-size: 62.5%;
+}
+
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: var(--white-color);  /* Genel beyaz arka plan rengi */
+  color: var(--text-color);              /* Genel metin rengi */
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+.navbar {
+  background-color: var(--white-color);  /* Navbar arka plan rengi */
+  color: var(--text-color);              /* Navbar metin rengi */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .hero {
-    background-image: url('../assets/3.png');
-    background-size: cover;
-    background-position: center;
-    color: #fff;
-    padding: 100px 0;
-    text-align: center;
-    position: relative;
+  background-image: url('../assets/wep Developer.png');  /* Background image */
+  background-size: contain; /* Resmin en-boy oranını korur */
+  background-position: center;
+  background-repeat: no-repeat; /* Ensure the image doesn't repeat */
+  color: var(--white-color);                 /* Hero text color */
+  padding: 20% 0; /* Dinamik padding, böylece içerik genişledikçe yüksekliği de genişler */
+  text-align: center;
+  position: relative;
+  margin-top: 0; /* Leave space for the fixed navbar */
+  height: auto; /* Let the height adjust according to content */
+  min-height: 300px; /* Minumum height to ensure some visibility */
 }
 
 .hero h1 {
-    font-size: 3.5rem;
-    font-weight: 700;
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--h1h2-color);                  /* Başlık rengi */
 }
 
 .hero p {
-    font-size: 1.5rem;
-    margin: 20px 0;
+  font-size: 2rem;
+  margin: 20px 0;
+  color: var(--text-color);                  /* Paragraf metin rengi */
 }
 
 .hero .hero-btn {
-    font-size: 1.2rem;
-    padding: 10px 10px;
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    border: none;
+  font-size: 1.5rem;
+  padding: 10px 20px;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.5);     /* Yarı saydam buton arka planı */
+  color: var(--white-color);                /* Buton metin rengi */
+  border: none;
+  display: none;
 }
 
 .summary-sections {
-    margin-top: 50px;
+  margin-top: 50px;
+  background-color: var(--white-color); /* Summary arka plan rengi */
+  padding: 20px;
 }
 
 .summary-card {
-    margin-bottom: 20px;
-    transition: transform 0.3s, box-shadow 0.3s;
-    border: none;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: var(--primary-color);     /* Kart arka plan rengi */
+  color: var(--text-color);                 /* Kart metin rengi */
 }
 
 .summary-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .summary-card .card-title {
-    font-size: 1.5rem;
-    font-weight: 600;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--h1h2-color);                 /* Kart başlık rengi */
 }
 
 .summary-card .card-text {
-    text-align: center;
+  text-align: center;
 }
 
 .blog-section {
-    margin-top: 50px;
+  margin-top: 50px;
+  background-color: var(--primary-color); /* Blog bölümü arka plan rengi */
+  color: var(--secondary-color); /* Blog metin rengi */
+  padding: 20px;
 }
 
 .blog-section h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 20px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--h1h2-color);                 /* Blog başlık rengi */
 }
 
 .blog-card {
-    margin-bottom: 20px;
-    border: none;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    width: 100%;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+  background-color: var(--white-color);     /* Blog kart arka plan rengi */
+  color: var(--text-color);                 /* Blog kart metin rengi */
 }
 
 .blog-card .card-title {
-    font-size: 1.5rem;
-    font-weight: 600;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--h1h2-color);                 /* Blog kart başlık rengi */
 }
 
 .blog-card .card-text {
-    text-align: center;
+  text-align: center;
 }
 
 .technology-section {
-    margin-top: 50px;
+  margin-top: 50px;
+  background-color: var(--primary-color); /* Teknoloji bölümü arka plan rengi */
+  color: var(--white-color); /* Teknoloji metin rengi */
+  padding: 20px;
 }
 
 .technology-section h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 20px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--h1h2-color);                 /* Teknoloji bölümü başlık rengi */
 }
 
 .technology-section p {
-    font-size: 1.2rem;
-    margin-bottom: 40px;
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  color: var(--text-color);                 /* Teknoloji bölümü metin rengi */
 }
 
 .tech-icon {
-    width: 60px;
-    height: 60px;
-    margin: 10px;
-    transition: transform 0.3s;
+  width: 60px;
+  height: 60px;
+  margin: 10px;
+  transition: transform 0.3s;
 }
 
 .tech-icon:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .technology-section h4 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-top: 20px;
-    margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: var(--h1h2-color);                 /* Teknoloji bölümü alt başlık rengi */
 }
 
-/* Media queries for responsiveness */
-@media (max-width: 1200px) {
-    .blog-card {
-        margin-bottom: 15px;
-    }
-
-    .summary-card {
-        margin-bottom: 15px;
-    }
+.projects-section {
+  margin-top: 50px;
+  background-color: var(--primary-color); /* Projeler bölümü arka plan rengi */
+  color: var(--secondary-color); /* Projeler metin rengi */
+  padding: 20px;
 }
 
-@media (max-width: 992px) {
-    .hero h1 {
-        font-size: 3rem;
-    }
-
-    .hero p {
-        font-size: 1.2rem;
-    }
-
-    .hero .hero-btn {
-        font-size: 1rem;
-        padding: 8px 8px;
-    }
-
-    .blog-card .card-title {
-        font-size: 1.2rem;
-    }
-
-    .summary-card .card-title {
-        font-size: 1.2rem;
-    }
-
-    .technology-section h2 {
-        font-size: 2rem;
-    }
-
-    .technology-section h4 {
-        font-size: 1.2rem;
-    }
-
-    .technology-section p {
-        font-size: 1rem;
-    }
+.project-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: var(--white-color); /* Kart arka plan rengi */
+  color: var(--text-color); /* Kart metin rengi */
 }
 
+.project-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.project-card .card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--h1h2-color); /* Kart başlık rengi */
+}
+
+.project-card .card-text {
+  text-align: center;
+  color: var(--text-color); /* Kart metin rengi */
+}
+
+.project-card .card-link {
+  display: block;
+  text-align: center;
+  color: var(--primary-color); /* Link rengi */
+  font-weight: 600;
+}
+
+.project-card .card-link:hover {
+  color: var(--secondary-color); /* Hover durumunda link rengi */
+  text-decoration: none;
+}
+
+/* Responsive stiller */
 @media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2.5rem;
-    }
+  .project-card .card-title {
+      font-size: 1.2rem;
+  }
 
-    .hero p {
-        font-size: 1rem;
-    }
-
-    .hero .hero-btn {
-        font-size: 0.9rem;
-        padding: 6px 6px;
-    }
-
-    .blog-card .card-title {
-        font-size: 1rem;
-    }
-
-    .summary-card .card-title {
-        font-size: 1rem;
-    }
-
-    .technology-section h2 {
-        font-size: 1.5rem;
-    }
-
-    .technology-section h4 {
-        font-size: 1rem;
-    }
-
-    .technology-section p {
-        font-size: 0.9rem;
-    }
+  .project-card .card-text {
+      font-size: 1rem;
+  }
 }
 
 @media (max-width: 576px) {
-    .hero h1 {
-        font-size: 2rem;
-    }
+  .project-card .card-title {
+      font-size: 1rem;
+  }
 
-    .hero p {
-        font-size: 0.9rem;
-    }
+  .project-card .card-text {
+      font-size: 0.9rem;
+  }
+}
 
-    .hero .hero-btn {
-        font-size: 0.8rem;
-        padding: 2px 2px;
-    }
+img {
+  max-width: 100%;
+  height: auto;
+  display: block; /* Görsellerin düzgün bir şekilde hizalanmasını sağlar */
+}
 
-    .blog-card .card-title {
-        font-size: 0.9rem;
-    }
-
-    .summary-card .card-title {
-        font-size: 0.9rem;
-    }
-
-    .technology-section h2 {
-        font-size: 1.2rem;
-    }
-
-    .technology-section h4 {
-        font-size: 0.9rem;
-    }
-
-    .technology-section p {
-        font-size: 0.8rem;
-    }
+/* Example styles for images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block; /* Ensures proper alignment */
 }

@@ -34,7 +34,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html',
+      template: './public/index.html',  // Burada templateContent yerine public/index.html kullanılıyor
     }),
     isDevelopment && new ReactRefreshWebpackPlugin(),
     new webpack.DefinePlugin({
@@ -43,7 +43,7 @@ module.exports = {
   ].filter(Boolean),
   devServer: {
     static: {
-      directory: path.join(__dirname, 'public'),
+      directory: path.join(__dirname, 'public'),  // public klasörünü static dosyalar için kullanıyoruz
     },
     hot: true,
     historyApiFallback: true,

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Card, Row, Col, Button, Modal, Form } from 'react-bootstrap';
-import axios from '../axios'; // Axios importu
+import { Link } from 'react-router-dom';
+import axios from '../axios'; // Axios import
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
 const AdminBlogPage = () => {
@@ -13,10 +14,10 @@ const AdminBlogPage = () => {
     const [title, setTitle] = useState('');
     const [summary, setSummary] = useState('');
     const [content, setContent] = useState('');
-    const [image, setImage] = useState(null); // File input için null olarak başlat
+    const [image, setImage] = useState(null);
     const [category, setCategory] = useState('');
     const [isEditing, setIsEditing] = useState(false);
-    const [categoryName, setCategoryName] = useState(''); // Yeni kategori adı için
+    const [categoryName, setCategoryName] = useState('');
 
     useEffect(() => {
         const fetchBlogs = async () => {
@@ -78,7 +79,7 @@ const AdminBlogPage = () => {
                 await axios.put(`/blogs/${selectedBlog._id}`, formData);
             } else {
                 const userLocal = JSON.parse(localStorage.getItem('userInfo'));
-                formData.append('author', userLocal._id); // Author bilgisini ekleyin
+                formData.append('author', userLocal._id);
                 await axios.post('/blogs', formData);
             }
             setShowModal(false);
@@ -143,7 +144,7 @@ const AdminBlogPage = () => {
         <Container>
             <h2 className="page-title">Yönetici Blog Sayfası</h2>
             <Button variant="primary" onClick={handleCreateBlog} className="mb-3">Yeni Blog Oluştur</Button>
-            <Form onSubmit={handleCreateCategory}>
+            <Form onSubmit={handleCreateCategory} className="mb-4">
                 <Form.Group controlId="categoryName">
                     <Form.Label>Yeni Kategori Oluştur</Form.Label>
                     <Form.Control
@@ -155,10 +156,20 @@ const AdminBlogPage = () => {
                 </Form.Group>
                 <Button variant="primary" type="submit">Oluştur</Button>
             </Form>
+            
+            <Row className="mb-4">
+                <Col>
+                    <Link to="/admin/blogs" className="btn btn-info">Blog Yönetimi</Link>
+                </Col>
+                <Col>
+                    <Link to="/admin/users" className="btn btn-info">Kullanıcı Yönetimi</Link>
+                </Col>
+            </Row>
+
             <Row>
                 {blogs.map((blog) => (
                     <Col key={blog._id} sm={12} md={6} lg={4}>
-                        <Card className="blog-card">
+                        <Card className="blog-card mb-4">
                             {blog.image && <Card.Img variant="top" src={`http://localhost:5000${blog.image}`} />}
                             <Card.Body>
                                 <Card.Title className="blogUser" style={{ color: 'blue', fontSize: 'small' }}>
@@ -173,7 +184,7 @@ const AdminBlogPage = () => {
                                 <Card.Footer className="d-flex justify-content-between">
                                     <div>
                                         {[...Array(5)].map((_, i) => (
-                                            <span key={i} onClick={() => handleRating(blog, i + 1)}>
+                                            <span key={i} onClick={() => handleRating(blog, i + 1)} style={{ cursor: 'pointer' }}>
                                                 {i < blog.averageRating ? <AiFillStar /> : <AiOutlineStar />}
                                             </span>
                                         ))}
@@ -181,7 +192,7 @@ const AdminBlogPage = () => {
                                     <Button variant="link" onClick={() => handleShowCommentModal(blog)}>Yorum Ekle</Button>
                                     <Button variant="link" onClick={() => window.location.href = `/blogs/${blog._id}`}>Mehr lesen</Button>
                                 </Card.Footer>
-                                <Card.Footer className="d-flex">
+                                <Card.Footer className="d-flex justify-content-between">
                                     <Button variant="link" onClick={() => handleEditBlog(blog)}>Düzenle</Button>
                                     <Button variant="danger" onClick={() => handleDeleteBlog(blog._id)}>Sil</Button>
                                 </Card.Footer>

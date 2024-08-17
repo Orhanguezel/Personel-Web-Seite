@@ -1,35 +1,35 @@
-/* ContactPage.css */
-
 .contact-page {
-    background: #f8f9fa;
+    background: var(--white-color); /* Sayfa arka plan rengi */
     padding: 40px 0;
+    color: var(--text-color); /* Genel metin rengi */
 }
 
 .contact-page h2 {
-    color: #343a40;
-    font-size: 2.5rem;
+    color: var(--h1h2-color); /* Başlık rengi */
+    font-size: 3rem;
     margin-bottom: 20px;
 }
 
 .contact-page p {
-    color: #6c757d;
+    color: var(--text-color); /* Genel metin rengi */
 }
 
 .contact-info {
-    background: #ffffff;
+    background: var(--white-color); /* Bilgi kutusu arka plan rengi */
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+    color: var(--text-color); /* Bilgi kutusu metin rengi */
 }
 
 .contact-info h4 {
-    color: #343a40;
+    color: var(--h1h2-color); /* Bilgi kutusu başlık rengi */
     margin-bottom: 10px;
 }
 
 .contact-info p {
-    color: #6c757d;
-    font-size: 1rem;
+    color: var(--text-color); /* Bilgi kutusu metin rengi */
+    font-size: 2rem;
 }
 
 .social-links {
@@ -42,27 +42,46 @@
 }
 
 .social-links a {
-    color: #007bff;
-    font-size: 1.2rem;
+    color: var(--primary-color); /* Sosyal bağlantı link rengi */
+    font-size: 2rem;
     display: flex;
     align-items: center;
     text-decoration: none;
 }
 
 .social-links a:hover {
-    color: #0056b3;
+    color: var(--secondary-color); /* Hover durumunda sosyal bağlantı link rengi */
 }
 
 .social-links a svg {
     margin-right: 10px;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    color: var(--primary-color); /* Sosyal ikon rengi */
 }
 
 .reviews {
     margin-top: 20px;
-    color: #6c757d;
+    color: var(--text-color); /* Yorum metin rengi */
 }
 
 .reviews p {
     margin: 0;
+}
+
+.contact-form {
+    font-size: 2rem; /* Form alanları için font boyutu */
+}
+
+.contact-form .form-label {
+    font-size: 2rem; /* Label alanları için font boyutu */
+}
+
+.contact-form .form-control {
+    font-size: 1.5rem; /* Giriş alanları için font boyutu */
+    padding: 10px; /* Giriş alanları için padding */
+}
+
+.contact-form .btn {
+    font-size: 2rem; /* Buton için font boyutu */
+    padding: 10px 20px; /* Buton için padding */
 }
