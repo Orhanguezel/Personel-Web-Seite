@@ -1,25 +1,63 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Card, Button, Table } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Form, Table } from 'react-bootstrap';
 import axios from '../axios';
 import { useNavigate } from 'react-router-dom';
-import './AdminProfilePage.css';
 
 const AdminProfilePage = ({ userInfo }) => {
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
+    const [profileData, setProfileData] = useState({});
+    const [profileImage, setProfileImage] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const { data } = await axios.get('/users/profile');
+                setProfileData(data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching profile data:', error);
+                setLoading(false);
+            }
+        };
+
         const fetchUsers = async () => {
             try {
-                const { data } = await axios.get('/users'); // Assuming there's an endpoint to fetch all users
+                const { data } = await axios.get('/users');
                 setUsers(data);
             } catch (error) {
                 console.error('Error fetching users:', error);
             }
         };
 
+        fetchProfile();
         fetchUsers();
     }, []);
+
+    const handleProfileUpdate = async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('username', profileData.username);
+        formData.append('email', profileData.email);
+        if (profileImage) {
+            formData.append('profileImage', profileImage);
+        }
+
+        try {
+            const { data } = await axios.put('/users/profile', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            setProfileData(data);
+            alert('Profil güncellendi');
+        } catch (error) {
+            console.error('Error updating profile:', error);
+            alert('Profil güncellenemedi');
+        }
+    };
 
     const handleDeleteUser = async (userId) => {
         try {
@@ -39,45 +77,59 @@ const AdminProfilePage = ({ userInfo }) => {
         }
     };
 
+    if (loading) {
+        return <p>Yükleniyor...</p>;
+    }
+
     return (
         <Container className="admin-profile-page">
-            <h1>Willkommen, {userInfo.username}!</h1>
+            <h1>Admin Profil Sayfası</h1>
             <Card className="admin-info-card">
                 <Card.Body>
-                    <Card.Title>Admin Informationen</Card.Title>
+                    <Card.Title>Admin Bilgileri</Card.Title>
                     <Card.Text>
-                        <strong>Email:</strong> {userInfo.email}
+                        <strong>Kullanıcı Adı:</strong> {profileData.username}
                     </Card.Text>
                     <Card.Text>
-                        <strong>Rolle:</strong> {userInfo.role}
+                        <strong>Email:</strong> {profileData.email}
                     </Card.Text>
-                    <div className="admin-links">
-                        <Button
-                            variant="primary"
-                            className="admin-link-btn"
-                            onClick={() => navigate('/admin/blogs')}
-                        >
-                            Blog Admin Verwaltung
-                        </Button>
-                        <Button
-                            variant="secondary"
-                            className="admin-link-btn"
-                            onClick={() => navigate('/admin/users')}
-                        >
-                            Benutzerverwaltung
-                        </Button>
-                    </div>
+                    <Form onSubmit={handleProfileUpdate}>
+                        <Form.Group>
+                            <Form.Label>Kullanıcı Adı</Form.Label>
+                            <Form.Control
+                                type="text"
+                                value={profileData.username}
+                                onChange={(e) => setProfileData({ ...profileData, username: e.target.value })}
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control
+                                type="email"
+                                value={profileData.email}
+                                onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Profil Resmi</Form.Label>
+                            <Form.Control
+                                type="file"
+                                onChange={(e) => setProfileImage(e.target.files[0])}
+                            />
+                        </Form.Group>
+                        <Button type="submit">Profili Güncelle</Button>
+                    </Form>
                 </Card.Body>
             </Card>
 
-            <h2>Benutzerverwaltung</h2>
+            <h2>Kullanıcı Yönetimi</h2>
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>Benutzername</th>
+                        <th>Kullanıcı Adı</th>
                         <th>Email</th>
-                        <th>Rolle</th>
-                        <th>Aktionen</th>
+                        <th>Rol</th>
+                        <th>İşlemler</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -96,7 +148,7 @@ const AdminProfilePage = ({ userInfo }) => {
                             </td>
                             <td>
                                 <Button variant="danger" onClick={() => handleDeleteUser(user._id)}>
-                                    Löschen
+                                    Kullanıcıyı Sil
                                 </Button>
                             </td>
                         </tr>

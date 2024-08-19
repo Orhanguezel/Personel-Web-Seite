@@ -8,10 +8,11 @@ import BlogPage from './pages/BlogPage';
 import BlogDetailPage from './pages/BlogDetailPage';
 import AuthPage from './pages/AuthPage';
 import AdminBlogPage from './pages/AdminBlogPage';
-import ProfilePage from './pages/ProfilePage'; // Import ProfilePage
-import AdminProfilePage from './pages/AdminProfilePage'; // Import AdminProfilePage
+import ProfilePage from './pages/ProfilePage'; 
+import AdminProfilePage from './pages/AdminProfilePage'; 
 import Header from './components/Header';
 import Footer from './components/Footer';
+import NotFoundPage from './pages/NotFoundPage'; // Bu satırı ekleyin
 
 function App() {
     const [userInfo, setUserInfo] = useState(null);
@@ -34,9 +35,23 @@ function App() {
                 <Route path="/blog" element={<BlogPage />} />
                 <Route path="/blog/:id" element={<BlogDetailPage />} />
                 <Route path="/auth" element={<AuthPage setUserInfo={setUserInfo} />} />
-                <Route path="/profile" element={userInfo ? <ProfilePage userInfo={userInfo} /> : <Navigate to="/auth" />} />
-                <Route path="/admin/blogs" element={userInfo?.role === 'admin' ? <AdminBlogPage /> : <Navigate to="/auth" />} />
-                <Route path="/admin/users" element={userInfo?.role === 'admin' ? <AdminProfilePage userInfo={userInfo} /> : <Navigate to="/auth" />} />
+                
+                <Route
+                    path="/profile"
+                    element={userInfo ? <ProfilePage userInfo={userInfo} /> : <Navigate to="/auth" />}
+                />
+
+                <Route
+                    path="/admin/blogs"
+                    element={userInfo?.role === 'admin' ? <AdminBlogPage /> : <Navigate to="/auth" />}
+                />
+
+                <Route
+                    path="/admin/users"
+                    element={userInfo?.role === 'admin' ? <AdminProfilePage userInfo={userInfo} /> : <Navigate to="/auth" />}
+                />
+
+                <Route path="*" element={<NotFoundPage />} /> {/* 404 sayfasını ekleyin */}
             </Routes>
             <Footer />
         </Router>

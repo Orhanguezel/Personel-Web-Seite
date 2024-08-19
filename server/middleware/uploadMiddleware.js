@@ -4,7 +4,17 @@ const path = require('path');
 // Set storage engine
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, '../uploads/'));
+        let uploadPath;
+
+        if (file.fieldname === 'profileImage') {
+            uploadPath = path.join(__dirname, '../uploads/profiles/');
+        } else if (file.fieldname === 'blogImage') {
+            uploadPath = path.join(__dirname, '../uploads/blogs/');
+        } else {
+            uploadPath = path.join(__dirname, '../uploads/others/');
+        }
+
+        cb(null, uploadPath);
     },
     filename: (req, file, cb) => {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
@@ -13,27 +23,24 @@ const storage = multer.diskStorage({
 
 // Check file type
 function checkFileType(file, cb) {
-    // Allowed ext
     const filetypes = /jpeg|jpg|png|gif/;
-    // Check ext
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-    // Check mime
     const mimetype = filetypes.test(file.mimetype);
 
     if (mimetype && extname) {
         return cb(null, true);
     } else {
-        cb('Error: Images Only!');
+        cb('Error: Only image files are allowed!');
     }
 }
 
-// Init upload
+// Init upload middleware
 const upload = multer({
     storage: storage,
     limits: { fileSize: 1000000 }, // 1MB limit
     fileFilter: (req, file, cb) => {
         checkFileType(file, cb);
     }
-}).single('image');
+}).single('image'); // You can dynamically change 'image' to 'profileImage' or 'blogImage'
 
 module.exports = upload;

@@ -5,17 +5,25 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(
-  config => {
+  (config) => {
     const userInfo = localStorage.getItem('userInfo');
+
     if (userInfo) {
-      const { token } = JSON.parse(userInfo);
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+      try {
+        const { token } = JSON.parse(userInfo);
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+      } catch (error) {
+        console.error('Error parsing userInfo from localStorage:', error);
       }
     }
+    
     return config;
   },
-  error => Promise.reject(error)
+  (error) => {
+    return Promise.reject(error);
+  }
 );
 
 export default instance;

@@ -1,9 +1,32 @@
-import React from 'react';
-import { Container, Card, Button, Row, Col } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+// src/pages/ProfilePage.js
+
+import React, { useEffect, useState } from 'react';
+import { Container, Card } from 'react-bootstrap';
+import axios from '../axios';
 
 const ProfilePage = ({ userInfo }) => {
-    const navigate = useNavigate();
+    const [profileData, setProfileData] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const response = await axios.get('/users/profile');
+                const data = response.data;
+                setProfileData(data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Profil bilgilerini yüklerken bir hata oluştu:', error.message);
+                setLoading(false);
+            }
+        };
+
+        fetchProfile();
+    }, []);
+
+    if (loading) {
+        return <p>Profil bilgileri yükleniyor...</p>;
+    }
 
     return (
         <Container className="mt-4">
@@ -12,40 +35,14 @@ const ProfilePage = ({ userInfo }) => {
                 <Card.Body>
                     <Card.Title>Benutzerinformationen</Card.Title>
                     <Card.Text>
-                        <strong>Benutzername:</strong> {userInfo.username}
+                        <strong>Benutzername:</strong> {profileData?.username || 'Bilinmiyor'}
                     </Card.Text>
                     <Card.Text>
-                        <strong>Email:</strong> {userInfo.email}
+                        <strong>Email:</strong> {profileData?.email || 'Bilinmiyor'}
                     </Card.Text>
                     <Card.Text>
-                        <strong>Rolle:</strong> {userInfo.role}
+                        <strong>Rolle:</strong> {profileData?.role || 'Bilinmiyor'}
                     </Card.Text>
-
-                    {userInfo.role === 'admin' && (
-                        <>
-                            <h3>Admin Optionen</h3>
-                            <Row className="mt-4">
-                                <Col>
-                                    <Button 
-                                        variant="primary" 
-                                        onClick={() => navigate('/admin/blogs')}
-                                        className="w-100"
-                                    >
-                                        Blog Admin Verwaltung
-                                    </Button>
-                                </Col>
-                                <Col>
-                                    <Button 
-                                        variant="secondary" 
-                                        onClick={() => navigate('/admin/users')}
-                                        className="w-100"
-                                    >
-                                        Benutzerverwaltung
-                                    </Button>
-                                </Col>
-                            </Row>
-                        </>
-                    )}
                 </Card.Body>
             </Card>
         </Container>
