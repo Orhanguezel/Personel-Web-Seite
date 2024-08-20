@@ -75,8 +75,10 @@ const BlogPage = () => {
                                 <div className="d-flex justify-content-between">
                                     <Button variant="link" onClick={() => handleShowDetailModal(blog)}>Mehr lesen</Button>
                                     <div style={{ color: 'blue', fontSize: 'small' }}>
-                                        {blog.author.username}
-                                    </div>
+    {blog.author ? blog.author.username : 'Bilinmeyen Yazar'}
+</div>
+
+
                                 </div>
                                 <div className="d-flex justify-content-between">
                                     <Button variant="link" onClick={() => handleShowCommentModal(blog)}>Kommentar hinzufügen</Button>

@@ -81,8 +81,10 @@ const BlogDetailPage = () => {
                             </Button>
                         </Form>
                         <div style={{ color: 'blue', fontSize: 'small' }}>
-                            {blog.author.username}
-                        </div>
+    {blog.author ? blog.author.username : 'Bilinmeyen Yazar'}
+</div>
+
+
                     </Card.Footer>
                     <div>
                         {blog.comments.map((comment, index) => (

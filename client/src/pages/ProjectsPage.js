@@ -1,11 +1,11 @@
 import React from 'react';
 import { Container, Card, Row, Col } from 'react-bootstrap';
-import './ProjectsPage.css';
 import antalyaImage from '../assets/antalya-logo.png';
 import kuhlturmImage from '../assets/kuhlturm-logo.png';
 import btuImage from '../assets/btu-logo.png';
 import hazerImage from '../assets/hazer-logo.png';
 
+// Named export: Bu, projects dizisinin başka dosyalarda import edilmesine izin verir.
 export const projects = [
     { 
         title: 'Antalya Döner Pizzeria', 
@@ -37,6 +37,7 @@ export const projects = [
     }
 ];
 
+// Default export: Bu, ProjectsPage bileşeninin başka dosyalarda import edilmesine izin verir.
 function ProjectsPage() {
     return (
         <Container>
@@ -60,3 +61,4 @@ function ProjectsPage() {
 }
 
 export default ProjectsPage;
+

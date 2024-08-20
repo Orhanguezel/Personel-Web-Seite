@@ -12,7 +12,7 @@ import ProfilePage from './pages/ProfilePage';
 import AdminProfilePage from './pages/AdminProfilePage'; 
 import Header from './components/Header';
 import Footer from './components/Footer';
-import NotFoundPage from './pages/NotFoundPage'; // Bu satırı ekleyin
+import NotFoundPage from './pages/NotFoundPage'; // 404 Sayfa Bulunamadı sayfası
 
 function App() {
     const [userInfo, setUserInfo] = useState(null);
@@ -49,6 +49,11 @@ function App() {
                 <Route
                     path="/admin/users"
                     element={userInfo?.role === 'admin' ? <AdminProfilePage userInfo={userInfo} /> : <Navigate to="/auth" />}
+                />
+
+                <Route
+                    path="/admin"
+                    element={userInfo?.role === 'admin' ? <Navigate to="/admin/blogs" /> : <Navigate to="/auth" />}
                 />
 
                 <Route path="*" element={<NotFoundPage />} /> {/* 404 sayfasını ekleyin */}
